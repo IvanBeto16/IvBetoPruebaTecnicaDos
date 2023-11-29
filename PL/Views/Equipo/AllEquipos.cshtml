@@ -1,0 +1,44 @@
+﻿@model ML.Equipo
+@{
+    ViewBag.Title = "AllEquipos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Equipos Registrados</h2>
+<br /> <br />
+<span>Listado de los equipos registrados según las ligas que se tienen en el sistema. Se muestran tanto la información básica como la liga a la que pertenecen.</span>
+<span>Se pueden crear nuevos equipos dando click en el botón siguiente -></span> <a class="btn btn-success" href="@Url.Action("FormEquipo","Equipo", new { idEquipo = 0})">Crear Equipo</a>
+<br />
+<hr />
+<table class="table table-responsive table-dark table-bordered">
+    <thead>
+        <tr>
+            <th>Editar Equipo</th>
+            <th>Nombre del Club</th>
+            <th>Año de Fundacion</th>
+            <th>Ciudad Sede</th>
+            <th>Nombre de Estadio</th>
+            <th>No. Titulos Nacionales</th>
+            <th>No. Titulos Internacionales</th>
+            <th>Liga Afiliada</th>
+            <th>Eliminar Equipo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(ML.Equipo club in Model.Equipos)
+            {
+                <tr>
+                    <td><a class="btn btn-primary" href="@Url.Action("FormEquipo","Equipo", new { idEquipo = club.IdEquipo })">Editar</a></td>
+                    <td>@club.NombreEquipo</td>
+                    <td>@club.AnioFundacion</td>
+                    <td>@club.CiudadSede</td>
+                    <td>@club.Estadio</td>
+                    <td>@club.TitulosNacionales</td>
+                    <td>@club.TitulosInternacionales</td>
+                    <td>@club.Liga.NombreLiga</td>
+                    <td><a class="btn btn-danger">Eliminar</a></td>
+                </tr>
+            }
+    </tbody>
+</table>
+

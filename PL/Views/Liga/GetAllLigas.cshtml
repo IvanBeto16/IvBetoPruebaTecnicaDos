@@ -1,0 +1,47 @@
+﻿@model ML.Liga
+@{
+    ViewBag.Title = "GetAllLigas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Ligas Registradas</h2>
+<br />
+<br />
+<span>Listado de las Ligas de Futbol del mundo que han sido registradas, con su informacion principal y la confederacion a la que pertenecen</span>
+<span>Se pueden agregar nuevas ligas haciendo click al siguiente botón -></span> <a class="btn btn-success" href="@Url.Action("FormLiga","Liga", new { idLiga = 0 })">Agregar Liga Futbol</a>
+<br /> <hr />
+@if (Model.Ligas.Count() == 0)
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+        <hr>
+        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    </div>
+}
+else
+{
+    <table class="table table-responsive table-bordered table-striped">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th>Editar Elemento</th>
+                <th>Nombre de la Liga</th>
+                <th>Pais Perteneciente</th>
+                <th>Confederacion Asociadado</th>
+                <td>Eliminar Liga</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(ML.Liga liga in Model.Ligas)
+                {
+                    <tr>
+                        <td><a class="btn btn-primary" href="@Url.Action("FormLiga","Liga", new { idLiga = liga.IdLiga })">Editar Liga</a></td>
+                        <td>@liga.NombreLiga</td>
+                        <td>@liga.Pais</td>
+                        <td>@liga.Confederacion.Nombre</td>
+                        <td><a class="btn btn-danger" href="@Url.Action("Delete","Liga", new { idLiga = liga.IdLiga })" onclick="return confirm('Seguro de eliminar el elemento')">Eliminar Liga</a></td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+}

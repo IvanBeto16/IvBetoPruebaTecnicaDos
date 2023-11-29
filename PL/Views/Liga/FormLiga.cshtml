@@ -1,0 +1,35 @@
+﻿@model ML.Liga
+@{
+    ViewBag.Title = "FormLiga";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Registro de Ligas de Futbol</h2>
+<br />
+<br />
+<span>Llene la informacion necesaria para completar el registro de una nueva liga o para la edicion de una liga ya existente.</span>
+@using (Html.BeginForm("FormLiga", "Liga", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => Model.IdLiga)
+    <div class="row row-cols-2">
+        <div class="col-lg-6">
+            @Html.Label("Nombre de la Liga")
+            @Html.TextBoxFor(model => Model.NombreLiga, new { @class = "form-control", @placeholder = "Liga MX" })
+        </div>
+        <div class="col-lg-6">
+            @Html.Label("Pais perteneciente")
+            @Html.TextBoxFor(model => Model.Pais, new { @class = "form-control", @placeholder = "Mexico" })
+        </div>
+    </div>
+    <div class="row row-cols-6">
+        <div class="col-lg-6">
+            @Html.Label("Confederacion asociada")
+            @Html.DropDownListFor(model => Model.Confederacion.IdConfederacion, new SelectList(Model.Confederacion.Confederaciones, "IdConfederacion", "Nombre"), "Seleccione la Confederacion", new { @class = "form-control" })
+        </div>
+    </div>
+    <br />
+    <br />
+    <button class="btn btn-success" type="submit">Agregar Liga</button>
+    <a class="btn btn-danger" href="@Url.Action("GetAllLigas","Liga")">Regresar a las Ligas</a>
+}
+

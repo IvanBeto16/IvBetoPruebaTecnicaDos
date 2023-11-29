@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="IvBetoPruebaTecnicaDosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Confederacion">
+          <Key>
+            <PropertyRef Name="IdConfederacion" />
+          </Key>
+          <Property Name="IdConfederacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Equipo">
+          <Key>
+            <PropertyRef Name="IdEquipo" />
+          </Key>
+          <Property Name="IdEquipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreEquipo" Type="varchar" MaxLength="60" />
+          <Property Name="AnioFundacion" Type="int" />
+          <Property Name="CiudadSede" Type="varchar" MaxLength="50" />
+          <Property Name="Estadio" Type="varchar" MaxLength="50" />
+          <Property Name="TitulosNacionales" Type="int" />
+          <Property Name="TitulosInternacionales" Type="int" />
+          <Property Name="IdLiga" Type="int" />
+        </EntityType>
+        <EntityType Name="Liga">
+          <Key>
+            <PropertyRef Name="IdLiga" />
+          </Key>
+          <Property Name="IdLiga" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreLiga" Type="varchar" MaxLength="60" />
+          <Property Name="Pais" Type="varchar" MaxLength="30" />
+          <Property Name="IdConfederacion" Type="int" />
+        </EntityType>
+        <Association Name="FK__Equipo__IdLiga__1CF15040">
+          <End Role="Liga" Type="Self.Liga" Multiplicity="0..1" />
+          <End Role="Equipo" Type="Self.Equipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Liga">
+              <PropertyRef Name="IdLiga" />
+            </Principal>
+            <Dependent Role="Equipo">
+              <PropertyRef Name="IdLiga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Liga__IdConfeder__1367E606">
+          <End Role="Confederacion" Type="Self.Confederacion" Multiplicity="0..1" />
+          <End Role="Liga" Type="Self.Liga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Confederacion">
+              <PropertyRef Name="IdConfederacion" />
+            </Principal>
+            <Dependent Role="Liga">
+              <PropertyRef Name="IdConfederacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ConfedGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="EquipoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombreEquipo" Type="varchar" Mode="In" />
+          <Parameter Name="AnioFundacion" Type="int" Mode="In" />
+          <Parameter Name="CiudadSede" Type="varchar" Mode="In" />
+          <Parameter Name="Estadio" Type="varchar" Mode="In" />
+          <Parameter Name="TitulosNacionales" Type="int" Mode="In" />
+          <Parameter Name="TitulosInternacionales" Type="int" Mode="In" />
+          <Parameter Name="IdLiga" Type="int" Mode="In" />
+          <Parameter Name="filasInsertadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="EquipoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEquipo" Type="int" Mode="In" />
+          <Parameter Name="filasEliminadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="EquipoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="EquipoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEquipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EquipoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEquipo" Type="int" Mode="In" />
+          <Parameter Name="NombreEquipo" Type="varchar" Mode="In" />
+          <Parameter Name="AnioFundacion" Type="int" Mode="In" />
+          <Parameter Name="CiudadSede" Type="varchar" Mode="In" />
+          <Parameter Name="Estadio" Type="varchar" Mode="In" />
+          <Parameter Name="TitulosNacionales" Type="int" Mode="In" />
+          <Parameter Name="TitulosInternacionales" Type="int" Mode="In" />
+          <Parameter Name="IdLiga" Type="int" Mode="In" />
+          <Parameter Name="filasActualizadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="LigaAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombreLiga" Type="varchar" Mode="In" />
+          <Parameter Name="Pais" Type="varchar" Mode="In" />
+          <Parameter Name="IdConfederacion" Type="int" Mode="In" />
+          <Parameter Name="filasInsertadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="LigaDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdLiga" Type="int" Mode="In" />
+          <Parameter Name="filasEliminadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="LigaGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="LigaGetByConfed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdConfederacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="LigaGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdLiga" Type="int" Mode="In" />
+        </Function>
+        <Function Name="LigaUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdLiga" Type="int" Mode="In" />
+          <Parameter Name="NombreLiga" Type="varchar" Mode="In" />
+          <Parameter Name="Pais" Type="varchar" Mode="In" />
+          <Parameter Name="IdConfederacion" Type="int" Mode="In" />
+          <Parameter Name="filasActualizadas" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="IvBetoPruebaTecnicaDosModelStoreContainer">
+          <EntitySet Name="Confederacion" EntityType="Self.Confederacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipo" EntityType="Self.Equipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Liga" EntityType="Self.Liga" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Equipo__IdLiga__1CF15040" Association="Self.FK__Equipo__IdLiga__1CF15040">
+            <End Role="Liga" EntitySet="Liga" />
+            <End Role="Equipo" EntitySet="Equipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Liga__IdConfeder__1367E606" Association="Self.FK__Liga__IdConfeder__1367E606">
+            <End Role="Confederacion" EntitySet="Confederacion" />
+            <End Role="Liga" EntitySet="Liga" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IvBetoPruebaTecnicaDosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Confederacion">
+          <Key>
+            <PropertyRef Name="IdConfederacion" />
+          </Key>
+          <Property Name="IdConfederacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Liga" Relationship="Self.FK__Liga__IdConfeder__1367E606" FromRole="Confederacion" ToRole="Liga" />
+        </EntityType>
+        <EntityType Name="Equipo">
+          <Key>
+            <PropertyRef Name="IdEquipo" />
+          </Key>
+          <Property Name="IdEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreEquipo" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="AnioFundacion" Type="Int32" />
+          <Property Name="CiudadSede" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estadio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TitulosNacionales" Type="Int32" />
+          <Property Name="TitulosInternacionales" Type="Int32" />
+          <Property Name="IdLiga" Type="Int32" />
+          <NavigationProperty Name="Liga" Relationship="Self.FK__Equipo__IdLiga__1CF15040" FromRole="Equipo" ToRole="Liga" />
+        </EntityType>
+        <EntityType Name="Liga">
+          <Key>
+            <PropertyRef Name="IdLiga" />
+          </Key>
+          <Property Name="IdLiga" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreLiga" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Pais" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="IdConfederacion" Type="Int32" />
+          <NavigationProperty Name="Confederacion" Relationship="Self.FK__Liga__IdConfeder__1367E606" FromRole="Liga" ToRole="Confederacion" />
+          <NavigationProperty Name="Equipo" Relationship="Self.FK__Equipo__IdLiga__1CF15040" FromRole="Liga" ToRole="Equipo" />
+        </EntityType>
+        <Association Name="FK__Liga__IdConfeder__1367E606">
+          <End Role="Confederacion" Type="Self.Confederacion" Multiplicity="0..1" />
+          <End Role="Liga" Type="Self.Liga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Confederacion">
+              <PropertyRef Name="IdConfederacion" />
+            </Principal>
+            <Dependent Role="Liga">
+              <PropertyRef Name="IdConfederacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipo__IdLiga__1CF15040">
+          <End Role="Liga" Type="Self.Liga" Multiplicity="0..1" />
+          <End Role="Equipo" Type="Self.Equipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Liga">
+              <PropertyRef Name="IdLiga" />
+            </Principal>
+            <Dependent Role="Equipo">
+              <PropertyRef Name="IdLiga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IvBetoPruebaTecnicaDosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Confederacion" EntityType="Self.Confederacion" />
+          <EntitySet Name="Equipo" EntityType="Self.Equipo" />
+          <EntitySet Name="Liga" EntityType="Self.Liga" />
+          <AssociationSet Name="FK__Liga__IdConfeder__1367E606" Association="Self.FK__Liga__IdConfeder__1367E606">
+            <End Role="Confederacion" EntitySet="Confederacion" />
+            <End Role="Liga" EntitySet="Liga" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipo__IdLiga__1CF15040" Association="Self.FK__Equipo__IdLiga__1CF15040">
+            <End Role="Liga" EntitySet="Liga" />
+            <End Role="Equipo" EntitySet="Equipo" />
+          </AssociationSet>
+          <FunctionImport Name="ConfedGetAll" ReturnType="Collection(IvBetoPruebaTecnicaDosModel.ConfedGetAll_Result)" />
+          <FunctionImport Name="EquipoAdd">
+            <Parameter Name="NombreEquipo" Mode="In" Type="String" />
+            <Parameter Name="AnioFundacion" Mode="In" Type="Int32" />
+            <Parameter Name="CiudadSede" Mode="In" Type="String" />
+            <Parameter Name="Estadio" Mode="In" Type="String" />
+            <Parameter Name="TitulosNacionales" Mode="In" Type="Int32" />
+            <Parameter Name="TitulosInternacionales" Mode="In" Type="Int32" />
+            <Parameter Name="IdLiga" Mode="In" Type="Int32" />
+            <Parameter Name="filasInsertadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EquipoDelete">
+            <Parameter Name="IdEquipo" Mode="In" Type="Int32" />
+            <Parameter Name="filasEliminadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EquipoGetAll" ReturnType="Collection(IvBetoPruebaTecnicaDosModel.EquipoGetAll_Result)" />
+          <FunctionImport Name="EquipoGetById" ReturnType="Collection(IvBetoPruebaTecnicaDosModel.EquipoGetById_Result)">
+            <Parameter Name="IdEquipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EquipoUpdate">
+            <Parameter Name="IdEquipo" Mode="In" Type="Int32" />
+            <Parameter Name="NombreEquipo" Mode="In" Type="String" />
+            <Parameter Name="AnioFundacion" Mode="In" Type="Int32" />
+            <Parameter Name="CiudadSede" Mode="In" Type="String" />
+            <Parameter Name="Estadio" Mode="In" Type="String" />
+            <Parameter Name="TitulosNacionales" Mode="In" Type="Int32" />
+            <Parameter Name="TitulosInternacionales" Mode="In" Type="Int32" />
+            <Parameter Name="IdLiga" Mode="In" Type="Int32" />
+            <Parameter Name="filasActualizadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LigaAdd">
+            <Parameter Name="NombreLiga" Mode="In" Type="String" />
+            <Parameter Name="Pais" Mode="In" Type="String" />
+            <Parameter Name="IdConfederacion" Mode="In" Type="Int32" />
+            <Parameter Name="filasInsertadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LigaDelete">
+            <Parameter Name="IdLiga" Mode="In" Type="Int32" />
+            <Parameter Name="filasEliminadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LigaGetAll" ReturnType="Collection(IvBetoPruebaTecnicaDosModel.LigaGetAll_Result)" />
+          <FunctionImport Name="LigaGetByConfed" ReturnType="Collection(IvBetoPruebaTecnicaDosModel.LigaGetByConfed_Result)">
+            <Parameter Name="IdConfederacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LigaGetById" ReturnType="Collection(IvBetoPruebaTecnicaDosModel.LigaGetById_Result)">
+            <Parameter Name="IdLiga" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LigaUpdate">
+            <Parameter Name="IdLiga" Mode="In" Type="Int32" />
+            <Parameter Name="NombreLiga" Mode="In" Type="String" />
+            <Parameter Name="Pais" Mode="In" Type="String" />
+            <Parameter Name="IdConfederacion" Mode="In" Type="Int32" />
+            <Parameter Name="filasActualizadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ConfedGetAll_Result">
+          <Property Type="Int32" Name="IdConfederacion" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="EquipoGetAll_Result">
+          <Property Type="Int32" Name="IdEquipo" Nullable="false" />
+          <Property Type="String" Name="NombreEquipo" Nullable="true" MaxLength="60" />
+          <Property Type="Int32" Name="AnioFundacion" Nullable="true" />
+          <Property Type="String" Name="CiudadSede" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Estadio" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TitulosNacionales" Nullable="true" />
+          <Property Type="Int32" Name="TitulosInternacionales" Nullable="true" />
+          <Property Type="Int32" Name="IdLiga" Nullable="false" />
+          <Property Type="String" Name="NombreLiga" Nullable="true" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="EquipoGetById_Result">
+          <Property Type="Int32" Name="IdEquipo" Nullable="false" />
+          <Property Type="String" Name="NombreEquipo" Nullable="true" MaxLength="60" />
+          <Property Type="Int32" Name="AnioFundacion" Nullable="true" />
+          <Property Type="String" Name="CiudadSede" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Estadio" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TitulosNacionales" Nullable="true" />
+          <Property Type="Int32" Name="TitulosInternacionales" Nullable="true" />
+          <Property Type="Int32" Name="IdLiga" Nullable="false" />
+          <Property Type="String" Name="NombreLiga" Nullable="true" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="LigaGetAll_Result">
+          <Property Type="Int32" Name="IdLiga" Nullable="false" />
+          <Property Type="String" Name="NombreLiga" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Pais" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="IdConfederacion" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="LigaGetByConfed_Result">
+          <Property Type="Int32" Name="IdLiga" Nullable="false" />
+          <Property Type="String" Name="NombreLiga" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Pais" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="IdConfederacion" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="LigaGetById_Result">
+          <Property Type="Int32" Name="IdLiga" Nullable="false" />
+          <Property Type="String" Name="NombreLiga" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Pais" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="IdConfederacion" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IvBetoPruebaTecnicaDosModelStoreContainer" CdmEntityContainer="IvBetoPruebaTecnicaDosEntities">
+          <EntitySetMapping Name="Confederacion">
+            <EntityTypeMapping TypeName="IvBetoPruebaTecnicaDosModel.Confederacion">
+              <MappingFragment StoreEntitySet="Confederacion">
+                <ScalarProperty Name="IdConfederacion" ColumnName="IdConfederacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipo">
+            <EntityTypeMapping TypeName="IvBetoPruebaTecnicaDosModel.Equipo">
+              <MappingFragment StoreEntitySet="Equipo">
+                <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+                <ScalarProperty Name="NombreEquipo" ColumnName="NombreEquipo" />
+                <ScalarProperty Name="AnioFundacion" ColumnName="AnioFundacion" />
+                <ScalarProperty Name="CiudadSede" ColumnName="CiudadSede" />
+                <ScalarProperty Name="Estadio" ColumnName="Estadio" />
+                <ScalarProperty Name="TitulosNacionales" ColumnName="TitulosNacionales" />
+                <ScalarProperty Name="TitulosInternacionales" ColumnName="TitulosInternacionales" />
+                <ScalarProperty Name="IdLiga" ColumnName="IdLiga" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Liga">
+            <EntityTypeMapping TypeName="IvBetoPruebaTecnicaDosModel.Liga">
+              <MappingFragment StoreEntitySet="Liga">
+                <ScalarProperty Name="IdLiga" ColumnName="IdLiga" />
+                <ScalarProperty Name="NombreLiga" ColumnName="NombreLiga" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="IdConfederacion" ColumnName="IdConfederacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ConfedGetAll" FunctionName="IvBetoPruebaTecnicaDosModel.Store.ConfedGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvBetoPruebaTecnicaDosModel.ConfedGetAll_Result">
+                <ScalarProperty Name="IdConfederacion" ColumnName="IdConfederacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EquipoAdd" FunctionName="IvBetoPruebaTecnicaDosModel.Store.EquipoAdd" />
+          <FunctionImportMapping FunctionImportName="EquipoDelete" FunctionName="IvBetoPruebaTecnicaDosModel.Store.EquipoDelete" />
+          <FunctionImportMapping FunctionImportName="EquipoGetAll" FunctionName="IvBetoPruebaTecnicaDosModel.Store.EquipoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvBetoPruebaTecnicaDosModel.EquipoGetAll_Result">
+                <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+                <ScalarProperty Name="NombreEquipo" ColumnName="NombreEquipo" />
+                <ScalarProperty Name="AnioFundacion" ColumnName="AnioFundacion" />
+                <ScalarProperty Name="CiudadSede" ColumnName="CiudadSede" />
+                <ScalarProperty Name="Estadio" ColumnName="Estadio" />
+                <ScalarProperty Name="TitulosNacionales" ColumnName="TitulosNacionales" />
+                <ScalarProperty Name="TitulosInternacionales" ColumnName="TitulosInternacionales" />
+                <ScalarProperty Name="IdLiga" ColumnName="IdLiga" />
+                <ScalarProperty Name="NombreLiga" ColumnName="NombreLiga" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EquipoGetById" FunctionName="IvBetoPruebaTecnicaDosModel.Store.EquipoGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvBetoPruebaTecnicaDosModel.EquipoGetById_Result">
+                <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+                <ScalarProperty Name="NombreEquipo" ColumnName="NombreEquipo" />
+                <ScalarProperty Name="AnioFundacion" ColumnName="AnioFundacion" />
+                <ScalarProperty Name="CiudadSede" ColumnName="CiudadSede" />
+                <ScalarProperty Name="Estadio" ColumnName="Estadio" />
+                <ScalarProperty Name="TitulosNacionales" ColumnName="TitulosNacionales" />
+                <ScalarProperty Name="TitulosInternacionales" ColumnName="TitulosInternacionales" />
+                <ScalarProperty Name="IdLiga" ColumnName="IdLiga" />
+                <ScalarProperty Name="NombreLiga" ColumnName="NombreLiga" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EquipoUpdate" FunctionName="IvBetoPruebaTecnicaDosModel.Store.EquipoUpdate" />
+          <FunctionImportMapping FunctionImportName="LigaAdd" FunctionName="IvBetoPruebaTecnicaDosModel.Store.LigaAdd" />
+          <FunctionImportMapping FunctionImportName="LigaDelete" FunctionName="IvBetoPruebaTecnicaDosModel.Store.LigaDelete" />
+          <FunctionImportMapping FunctionImportName="LigaGetAll" FunctionName="IvBetoPruebaTecnicaDosModel.Store.LigaGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvBetoPruebaTecnicaDosModel.LigaGetAll_Result">
+                <ScalarProperty Name="IdLiga" ColumnName="IdLiga" />
+                <ScalarProperty Name="NombreLiga" ColumnName="NombreLiga" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="IdConfederacion" ColumnName="IdConfederacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="LigaGetByConfed" FunctionName="IvBetoPruebaTecnicaDosModel.Store.LigaGetByConfed">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvBetoPruebaTecnicaDosModel.LigaGetByConfed_Result">
+                <ScalarProperty Name="IdLiga" ColumnName="IdLiga" />
+                <ScalarProperty Name="NombreLiga" ColumnName="NombreLiga" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="IdConfederacion" ColumnName="IdConfederacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="LigaGetById" FunctionName="IvBetoPruebaTecnicaDosModel.Store.LigaGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvBetoPruebaTecnicaDosModel.LigaGetById_Result">
+                <ScalarProperty Name="IdLiga" ColumnName="IdLiga" />
+                <ScalarProperty Name="NombreLiga" ColumnName="NombreLiga" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="IdConfederacion" ColumnName="IdConfederacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="LigaUpdate" FunctionName="IvBetoPruebaTecnicaDosModel.Store.LigaUpdate" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

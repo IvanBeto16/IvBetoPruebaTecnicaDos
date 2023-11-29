@@ -1,0 +1,58 @@
+﻿@model ML.Equipo
+@{
+    ViewBag.Title = "FormEquipo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Contol de Equipos</h2>
+<br />
+<br />
+<span>Debe llenar los campos necesarios para completar el registro de su nuevo club o la edicion de un club ya existente.</span>
+@using (Html.BeginForm("FormEquipo", "Equipo", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => Model.IdEquipo)
+    <div class="row row-cols-2">
+        <div class="col-lg-6">
+            @Html.Label("Nombre del Equipo")
+            @Html.TextBoxFor(model => Model.NombreEquipo, new { @class = "form-control", @placeholder = "Club X" })
+        </div>
+        <div class="col-lg-6">
+            @Html.Label("Año de Fundación")
+            @Html.TextBoxFor(model => Model.AnioFundacion, new { @class = "form-control", @placeholder = "2010" })
+        </div>
+    </div>
+    <br />
+    <div class="row row-cols-2">
+        <div class="col-lg-6">
+            @Html.Label("Ciudad Sede del Club")
+            @Html.TextBoxFor(model => Model.CiudadSede, new { @class = "form-control", @placeholder = "Club X" })
+        </div>
+        <div class="col-lg-6">
+            @Html.Label("Estadio de local")
+            @Html.TextBoxFor(model => Model.Estadio, new { @class = "form-control", @placeholder = "2010" })
+        </div>
+    </div>
+    <br />
+    <div class="row row-cols-2">
+        <div class="col-lg-6">
+            @Html.Label("Titulos Nacionales (Liga, Copa, Supercopa)")
+            @Html.TextBoxFor(model => Model.TitulosNacionales, new { @class = "form-control", @placeholder = "Club X" })
+        </div>
+        <div class="col-lg-6">
+            @Html.Label("Titulos Internacionales (FIFA)")
+            @Html.TextBoxFor(model => Model.TitulosInternacionales, new { @class = "form-control", @placeholder = "2010" })
+        </div>
+    </div>
+    <br />
+    <div class="row row-cols-6">
+        <div class="col-lg-6">
+            @Html.Label("Liga afiliada")
+            @Html.DropDownListFor(model => Model.Liga.IdLiga, new SelectList(Model.Liga.Ligas, "IdLiga", "NombreLiga"), "Seleccione la Liga", new { @class = "form-control" })
+        </div>
+    </div>
+    <br />
+    <br />
+    <button class="btn btn-success" type="submit">Agregar Equipo</button>
+    <a class="btn btn-danger" href="@Url.Action("AllEquipos","Equipo")">Regresar a los Equipos</a>
+}
+
